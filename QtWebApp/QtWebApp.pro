@@ -24,11 +24,7 @@ CONFIG(debug, debug|release) {
     unix:!mac:  TARGET = $$join(TARGET,,,d)
 }
 
-DISTFILES += doc/* mainpage.dox Doxyfile \
-    ../CHANGELOG.txt \
-    ../LICENSE.txt \
-    ../README.txt
-OTHER_FILES += ../readme.txt
+DISTFILES += mainpage.dox Doxyfile ../CHANGELOG.txt ../LICENSE.txt ../README.txt
 
 include(logging/logging.pri)
 include(httpserver/httpserver.pri)

@@ -5,13 +5,13 @@ TEMPLATE = app
 QT = core network
 CONFIG += console depend_includepath
 
-HEADERS += \
-           src/requesthandler.h
+HEADERS += src/requesthandler.h
 
-SOURCES += src/main.cpp \
-           src/requesthandler.cpp
+SOURCES += src/main.cpp  src/requesthandler.cpp
 
-OTHER_FILES += etc/*  logs/* ../readme.txt
+OTHER_FILES += etc/* logs/*
+
+DISTFILES += ../CHANGELOG.txt ../LICENSE.txt ../README.txt
 
 #---------------------------------------------------------------------------------------
 # The following lines import the shared QtWebApp library.

@@ -1,6 +1,6 @@
 <html><body>
 
-Hallo,€<br>
+Hallo,<br>
 du hast folgenden Pfad angefordert: {path}
 <p>
 Und dein Web Browser hat folgende Kopfzeilen geliefert:
