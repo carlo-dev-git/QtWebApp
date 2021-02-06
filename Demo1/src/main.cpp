@@ -49,6 +49,7 @@ QString searchConfigFile()
         qWarning("%s/%s not found",qPrintable(dir),qPrintable(fileName));
     }
     qFatal("Cannot find config file %s",qPrintable(fileName));
+    return nullptr;
 }
 
 
@@ -91,7 +92,7 @@ int main(int argc, char *argv[])
     listenerSettings->beginGroup("listener");
     new HttpListener(listenerSettings,new RequestMapper(&app),&app);
 
-    qInfo("Application has started");
+    qWarning("Application has started");
     app.exec();
-    qInfo("Application has stopped");
+    qWarning("Application has stopped");
 }

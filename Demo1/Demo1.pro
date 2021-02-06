@@ -4,7 +4,6 @@
 TARGET = Demo1
 TEMPLATE = app
 QT = core network
-CONFIG += console
 
 HEADERS += \
            src/global.h \
@@ -33,4 +32,8 @@ OTHER_FILES += etc/* etc/docroot/* etc/templates/* etc/ssl/* logs/* ../readme.tx
 include(../QtWebApp/logging/logging.pri)
 include(../QtWebApp/httpserver/httpserver.pri)
 include(../QtWebApp/templateengine/templateengine.pri)
-# Not used: include(../QtWebApp/qtservice/qtservice.pri)
+
+DISTFILES += \
+    ../CHANGELOG.txt \
+    ../LICENSE.txt \
+    ../README.txt

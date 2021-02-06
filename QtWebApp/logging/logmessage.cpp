@@ -54,7 +54,7 @@ QString LogMessage::toString(const QString& msgFormat, const QString& timestampF
         case QtFatalMsg:
             decorated.replace("{type}","FATAL   ");
             break;
-    #if (QT_VERSION >= QT_VERSION_CHECK(5, 5, 0))
+    #if QT_VERSION >= QT_VERSION_CHECK(5, 5, 0)
         case QtInfoMsg:
             decorated.replace("{type}","INFO    ");
             break;
@@ -66,7 +66,11 @@ QString LogMessage::toString(const QString& msgFormat, const QString& timestampF
     decorated.replace("{line}",QString::number(line));
 
     QString threadId;
-    threadId.sprintf("%p", QThread::currentThreadId());
+    #if QT_VERSION >= QT_VERSION_CHECK(5, 5, 0)
+        threadId.asprintf("%p", QThread::currentThreadId());
+    #else
+        threadId.sprintf("%p", QThread::currentThreadId());
+    #endif
     //threadId.setNum((uintptr_t)QThread::currentThreadId());
     decorated.replace("{thread}",threadId);
 

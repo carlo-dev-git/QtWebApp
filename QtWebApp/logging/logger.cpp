@@ -6,10 +6,12 @@
 #include "logger.h"
 #include <stdio.h>
 #include <stdlib.h>
-#include <QMutex>
 #include <QDateTime>
 #include <QThread>
 #include <QObject>
+#if QT_VERSION >= QT_VERSION_CHECK(6, 0, 0)
+    #include <QRecursiveMutex>
+#endif
 
 using namespace stefanfrings;
 
@@ -40,12 +42,16 @@ Logger::Logger(const QString msgFormat, const QString timestampFormat, const QtM
     this->bufferSize=bufferSize;
 }
 
-
-void Logger::msgHandler(const QtMsgType type, const QString &message, const QString &file, const QString &function, const int line)
-{
+#if QT_VERSION >= QT_VERSION_CHECK(6, 0, 0)
+    static QRecursiveMutex recursiveMutex;
+    static QMutex nonRecursiveMutex;
+#else
     static QMutex recursiveMutex(QMutex::Recursive);
     static QMutex nonRecursiveMutex(QMutex::NonRecursive);
+#endif
 
+void Logger::msgHandler(const QtMsgType type, const QString &message, const QString &file, const QString &function, const int line)
+{   
     // Prevent multiple threads from calling this method simultaneoulsy.
     // But allow recursive calls, which is required to prevent a deadlock
     // if the logger itself produces an error message.
@@ -73,7 +79,7 @@ void Logger::msgHandler(const QtMsgType type, const QString &message, const QStr
 }
 
 
-#if QT_VERSION >= 0x050000
+#if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
     void Logger::msgHandler5(const QtMsgType type, const QMessageLogContext &context, const QString &message)
     {
       (void)(context); // suppress "unused parameter" warning
@@ -91,7 +97,7 @@ Logger::~Logger()
 {
     if (defaultLogger==this)
     {
-#if QT_VERSION >= 0x050000
+#if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
         qInstallMessageHandler(nullptr);
 #else
         qInstallMsgHandler(nullptr);
@@ -111,7 +117,7 @@ void Logger::write(const LogMessage* logMessage)
 void Logger::installMsgHandler()
 {
     defaultLogger=this;
-#if QT_VERSION >= 0x050000
+#if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
     qInstallMessageHandler(msgHandler5);
 #else
     qInstallMsgHandler(msgHandler4);
@@ -173,8 +179,14 @@ void Logger::log(const QtMsgType type, const QString& message, const QString &fi
             delete buffer->takeFirst();
         }
         // If the type of the message is high enough, print the whole buffer
-        // With one Exception: INFO messages are treated like DEBUG messages here
-        QtMsgType level=(type==QtInfoMsg?QtDebugMsg:type);
+        // With one Exception since Qt 5.5: INFO messages are treated like DEBUG messages here
+        QtMsgType level=type;
+        #if QT_VERSION >= QT_VERSION_CHECK(5, 5, 0)
+            if (level==QtInfoMsg)
+            {
+                level=QtMsgType::QtDebugMsg;
+            }
+        #endif
         if (level>=minLevel)
         {
             // Print the whole buffer content

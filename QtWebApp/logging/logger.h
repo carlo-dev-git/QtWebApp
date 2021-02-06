@@ -162,7 +162,7 @@ private:
                            const QString &function="", const int line=0);
 
 
-#if QT_VERSION >= 0x050000
+#if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
 
     /**
       Wrapper for QT version 5.
@@ -190,7 +190,6 @@ private:
 
     /** Thread local backtrace buffers */
     QThreadStorage<QList<LogMessage*>*> buffers;
-
 };
 
 } // end of namespace

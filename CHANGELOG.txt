@@ -1,6 +1,11 @@
 Dont forget to update the release number also in
 QtWebApp.pro and httpserver/httpglobal.cpp.
 
+1.8.0
+06.02.2021
+Fix compatibility issues to Qt 4.7 and 6.0.
+Removed qtservice, use the Non-Sucking Service Manager (https://nssm.cc/) instead.
+
 1.7.11
 28.12.2019
 Fix Http Headers are not properly received if the two characters of
