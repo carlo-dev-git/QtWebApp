@@ -3,7 +3,7 @@ Works with Qt SDK version 4.7 until at least 6.0
 
 License: LGPL v3.
 
-Project homepage:  http://stefanfrings.de/qtwebapp/index.html
+Project homepage:  http://stefanfrings.de/qtwebapp/index-en.html
 Tutorial:          http://stefanfrings.de/qtwebapp/tutorial/index.html
 API doc:           http://stefanfrings.de/qtwebapp/api/index.html
 
