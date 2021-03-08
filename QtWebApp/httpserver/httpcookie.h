@@ -34,7 +34,7 @@ public:
       @param domain Optional domain for that the cookie will be sent. Defaults to the current domain
       @param secure If true, the cookie will be sent by the browser to the server only on secure connections
       @param httpOnly If true, the browser does not allow client-side scripts to access the cookie
-      @param sameSite I true, the cookie can only be read by the same site, which is a stronger
+      @param sameSite Declare if the cookie can only be read by the same site, which is a stronger
              restriction than the domain. Allowed values: "Lax" and "Strict".
     */
     HttpCookie(const QByteArray name, const QByteArray value, const int maxAge,
