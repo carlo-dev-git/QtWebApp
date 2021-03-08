@@ -28,10 +28,9 @@ namespace stefanfrings {
   taken from a static thread local dictionary.
   <p>
   The logger can collect a configurable number of messages in thread-local
-  ring buffers. If the buffer is enabled, then a log message with
-  severity >= minLevel flushes the buffer, so the stored messages are
-  written out. There is one exception: INFO messages are treated like DEBUG messages
-  (level 0).
+  FIFO buffers. A log message with severity >= minLevel flushes the buffer,
+  so the messages are written out. There is one exception:
+  INFO messages are treated like DEBUG messages (level 0).
   <p>
   Example: If you enable the buffer and use minLevel=2, then the application
   waits until an error occurs. Then it writes out the error message together

@@ -1,6 +1,10 @@
 Dont forget to update the release number also in
 QtWebApp.pro and httpserver/httpglobal.cpp.
 
+1.8.2
+08.03.2021
+Fix threadId not printed in log file.
+
 1.8.1
 07.02.2021
 Add Cookie attribute "SameSite". 
