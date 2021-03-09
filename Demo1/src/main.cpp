@@ -21,7 +21,8 @@ QString searchConfigFile()
     searchList.append(binDir);
     searchList.append(binDir+"/etc");
     searchList.append(binDir+"/../etc");
-    searchList.append(binDir+"/../Demo1/etc"); // for development with shadow build
+    searchList.append(binDir+"/../Demo1/etc"); // for development with shadow build (Linux)
+    searchList.append(binDir+"/../../Demo1/etc"); // for development with shadow build (Windows)
     searchList.append(QDir::rootPath()+"etc/opt");
     searchList.append(QDir::rootPath()+"etc");
 
