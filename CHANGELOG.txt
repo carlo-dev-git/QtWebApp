@@ -1,6 +1,13 @@
 Dont forget to update the release number also in
 QtWebApp.pro and httpserver/httpglobal.cpp.
 
+1.8.3
+21.03.2021
+The minLevel for logging can now be configured as string:
+DEBUG/ALL=0, INFO=4, WARNING=1, ERROR/CRITICAL=2, FATAL=3
+Info messages are now positioned between DEBUG and WARNING.
+I also added an example for HTTP Basic authorization.
+
 1.8.2
 08.03.2021
 Fix threadId not printed in log file.

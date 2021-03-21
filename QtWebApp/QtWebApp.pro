@@ -1,7 +1,7 @@
 # Build this project to generate a shared library (*.dll or *.so).
 
 TARGET = QtWebApp
-VERSION = 1.8.2
+VERSION = 1.8.3
 TEMPLATE = lib
 QT -= gui
 
