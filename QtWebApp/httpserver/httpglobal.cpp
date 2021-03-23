@@ -2,6 +2,6 @@
 
 const char* getQtWebAppLibVersion()
 {
-    return "1.8.1";
+    return "1.8.3";
 }
 

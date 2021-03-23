@@ -7,6 +7,7 @@ QT = core network
 CONFIG += console
 
 HEADERS += \
+           src/controller/logincontroller.h \
            src/global.h \
            src/requestmapper.h \
            src/controller/dumpcontroller.h \
@@ -16,6 +17,7 @@ HEADERS += \
            src/controller/sessioncontroller.h
 
 SOURCES += src/main.cpp \
+           src/controller/logincontroller.cpp \
            src/global.cpp \
            src/requestmapper.cpp \
            src/controller/dumpcontroller.cpp \
