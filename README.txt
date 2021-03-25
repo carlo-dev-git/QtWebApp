@@ -17,6 +17,7 @@ project, the preferred method.
 Demo2 shows how to link against the shared library.
 Build the project QtWebApp to generate the shared library.
 
+Please do not send me pull requests for new features.
 
 Stefan Frings
 http://stefanfrings.de
