@@ -140,6 +140,10 @@ void StaticFileController::setContentType(const QString fileName, HttpResponse &
     {
         response.setHeader("Content-Type", "application/pdf");
     }
+    else if (fileName.endsWith(".wasm"))
+    {
+        response.setHeader("Content-Type", "application/wasm");
+    }
     else if (fileName.endsWith(".txt"))
     {
         response.setHeader("Content-Type", qPrintable("text/plain; charset="+encoding));
