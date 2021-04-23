@@ -443,6 +443,14 @@ void HttpRequest::parseMultiPartFile()
                     qDebug("HttpRequest: ignoring unsupported content part %s",line.data());
                 }
             }
+#ifdef SUPERVERBOSE
+            // Trace the content type foreach content disposition
+            else if (line.startsWith("Content-Type:"))
+            {
+                QByteArray content=line.mid(line.indexOf(" ")+1);
+                qDebug("HttpRequest: content type is %s",content.data());
+            }
+#endif
             else if (line.isEmpty())
             {
                 break;
