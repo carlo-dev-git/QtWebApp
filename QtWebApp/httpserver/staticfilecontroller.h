@@ -8,6 +8,7 @@
 
 #include <QCache>
 #include <QMutex>
+#include <QMap>
 #include "httpglobal.h"
 #include "httprequest.h"
 #include "httpresponse.h"
@@ -90,6 +91,12 @@ private:
 
     /** Used to synchronize cache access for threads */
     QMutex mutex;
+
+    /** MIME type map for content-type */
+    static /*const*/ QMap<QString, QByteArray> mimeTypeMap;
+
+    /** Initialize the MIME type map */
+    void initMimeTypeMap();
 
     /** Set a content-type header in the response depending on the ending of the filename */
     void setContentType(const QString file, HttpResponse &response) const;

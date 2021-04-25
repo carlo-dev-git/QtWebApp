@@ -35,6 +35,7 @@ StaticFileController::StaticFileController(const QSettings *settings, QObject* p
     cacheTimeout=settings->value("cacheTime","60000").toInt();
     long int cacheMaxCost=(long int)cache.maxCost();
     qDebug("StaticFileController: cache timeout=%i, size=%li",cacheTimeout,cacheMaxCost);
+    initMimeTypeMap();
 }
 
 
@@ -122,73 +123,40 @@ void StaticFileController::service(HttpRequest &request, HttpResponse &response)
     }
 }
 
+/*const*/ QMap<QString, QByteArray> StaticFileController::mimeTypeMap;
+
+void StaticFileController::initMimeTypeMap()
+{
+    mimeTypeMap.insert(".png", "image/png");
+    mimeTypeMap.insert(".jpg", "image/jpeg");
+    mimeTypeMap.insert(".gif", "image/gif");
+    mimeTypeMap.insert(".pdf", "application/pdf");
+    mimeTypeMap.insert(".txt", qPrintable("text/plain; charset="+encoding));
+    mimeTypeMap.insert(".htm", qPrintable("text/html; charset="+encoding));
+    mimeTypeMap.insert(".html", qPrintable("text/html; charset="+encoding));
+    mimeTypeMap.insert(".css", "text/css");
+    mimeTypeMap.insert(".js", "text/javascript");
+    mimeTypeMap.insert(".svg", "image/svg+xml");
+    mimeTypeMap.insert(".woff", "font/woff");
+    mimeTypeMap.insert(".woff2", "font/woff2");
+    mimeTypeMap.insert(".ttf", "application/x-font-ttf");
+    mimeTypeMap.insert(".eot", "application/vnd.ms-fontobject");
+    mimeTypeMap.insert(".otf", "application/font-otf");
+    mimeTypeMap.insert(".json", "application/json");
+    mimeTypeMap.insert(".xml", "text/xml");
+    // Todo: add all of your content types
+    qDebug("StaticFileController: added '%d' MIME types", mimeTypeMap.size());
+}
+
 void StaticFileController::setContentType(const QString fileName, HttpResponse &response) const
 {
-    if (fileName.endsWith(".png"))
+    QString suffix(fileName.mid(fileName.indexOf(".")));
+    QByteArray contentType(mimeTypeMap.value(suffix));
+    if (!contentType.isEmpty())
     {
-        response.setHeader("Content-Type", "image/png");
+        //qDebug("Content-Type %s", qPrintable(contentType));
+        response.setHeader("Content-Type", contentType);
     }
-    else if (fileName.endsWith(".jpg"))
-    {
-        response.setHeader("Content-Type", "image/jpeg");
-    }
-    else if (fileName.endsWith(".gif"))
-    {
-        response.setHeader("Content-Type", "image/gif");
-    }
-    else if (fileName.endsWith(".pdf"))
-    {
-        response.setHeader("Content-Type", "application/pdf");
-    }
-    else if (fileName.endsWith(".txt"))
-    {
-        response.setHeader("Content-Type", qPrintable("text/plain; charset="+encoding));
-    }
-    else if (fileName.endsWith(".html") || fileName.endsWith(".htm"))
-    {
-        response.setHeader("Content-Type", qPrintable("text/html; charset="+encoding));
-    }
-    else if (fileName.endsWith(".css"))
-    {
-        response.setHeader("Content-Type", "text/css");
-    }
-    else if (fileName.endsWith(".js"))
-    {
-        response.setHeader("Content-Type", "text/javascript");
-    }
-    else if (fileName.endsWith(".svg"))
-    {
-        response.setHeader("Content-Type", "image/svg+xml");
-    }
-    else if (fileName.endsWith(".woff"))
-    {
-        response.setHeader("Content-Type", "font/woff");
-    }
-    else if (fileName.endsWith(".woff2"))
-    {
-        response.setHeader("Content-Type", "font/woff2");
-    }
-    else if (fileName.endsWith(".ttf"))
-    {
-        response.setHeader("Content-Type", "application/x-font-ttf");
-    }
-    else if (fileName.endsWith(".eot"))
-    {
-        response.setHeader("Content-Type", "application/vnd.ms-fontobject");
-    }
-    else if (fileName.endsWith(".otf"))
-    {
-        response.setHeader("Content-Type", "application/font-otf");
-    }
-    else if (fileName.endsWith(".json"))
-    {
-        response.setHeader("Content-Type", "application/json");
-    }
-    else if (fileName.endsWith(".xml"))
-    {
-        response.setHeader("Content-Type", "text/xml");
-    }
-    // Todo: add all of your content types
     else
     {
         qDebug("StaticFileController: unknown MIME type for filename '%s'", qPrintable(fileName));
