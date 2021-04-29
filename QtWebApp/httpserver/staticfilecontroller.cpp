@@ -143,6 +143,7 @@ void StaticFileController::initMimeTypeMap()
     mimeTypeMap.insert(".eot", "application/vnd.ms-fontobject");
     mimeTypeMap.insert(".otf", "application/font-otf");
     mimeTypeMap.insert(".json", "application/json");
+    mimeTypeMap.insert(".wasm", "application/wasm");
     mimeTypeMap.insert(".xml", "text/xml");
     // Todo: add all of your content types
     qDebug("StaticFileController: added '%d' MIME types", mimeTypeMap.size());
